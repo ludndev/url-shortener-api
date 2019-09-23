@@ -41,16 +41,15 @@ class Rest extends Header
 	public function __construct(string $method, int $age = 3600)
 	{
 		$method = strtoupper($method);
-
-		$this->CheckMethod($method);
-
+		/* minimal headers , they should always be there */
 		$this->SetJson();
 		$this->SetOrigin('*');
-		$this->SetMethod($method);
 		$this->SetAge(3600);
-
+		/* check and set method */
+		$this->CheckMethod($method);
+		$this->SetMethod($method);
+		/* special headers required by method */
 		$this->SpecialHeader($method);
-
 	}
 
 
@@ -64,7 +63,7 @@ class Rest extends Header
 	 */
 	protected function CheckMethod(string $method):void
 	{
-		if ( in_array($this->allowMethods, $method) )
+		if ( !in_array($method, $this->allowMethods) )
 			throw new Exception("UNALLOWED_METHOD", 1);
 	}
 
