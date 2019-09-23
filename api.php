@@ -4,7 +4,6 @@
 namespace Ludndev\UrlShortener;
 
 
-
 /**
  * API Class
  *
@@ -16,6 +15,14 @@ namespace Ludndev\UrlShortener;
  */
 class API 
 {
+
+	/**
+	 * Temporaly store error message
+	 *
+	 * @access protected
+	 * @var string $errorMessage
+	 */
+	protected $errorMessage;
 
 
 	/**
@@ -31,14 +38,36 @@ class API
 
 
 	/**
-	 * Make base directory easier to resolve
+	 * Resolve and init some required 'tools'
+	 *
+	 * @access public
+	 * @return object
+	 */
+	public function Loader():object
+	{
+		return 
+			$this->Composer()
+				 ->Resolver()
+				 ->Providers()
+				 ->Controllers();
+	}
+
+
+	/**
+	 * Make some action more easier and global
 	 *
 	 * @access public
 	 * @return object
 	 */
 	public function Resolver():object
 	{
+		/* resolve and set base directory as DIR */
 		define( 'DIR' , __DIR__ );
+
+		/* load .env data */
+		$dotenv = \Dotenv\Dotenv::create( __DIR__ );
+		$dotenv->load();
+
 		return $this;
 	}
 
@@ -51,7 +80,7 @@ class API
 	 */
 	public function Composer():object
 	{
-		require( DIR . '/vendor/autoload.php' );
+		require( __DIR__ . '/vendor/autoload.php' );
 		return $this;
 	}
 
@@ -65,8 +94,7 @@ class API
 	public function Controllers():object
 	{
 		/* Table */
-		require( DIR . '/controllers/Table/table.loader.php' );
-
+		require( __DIR__ . '/controllers/Table/table.loader.php' );
 		return $this;
 	}
 
@@ -79,14 +107,43 @@ class API
 	 */
 	public function Providers():object
 	{
-		require( DIR . '/providers/Header.php' );
-		require( DIR . '/providers/Rest.php' );
-		require( DIR . '/providers/DBControllers.php' );
-		require( DIR . '/providers/Shared.php' );
-		require( DIR . '/providers/Auth.php' );
-		require( DIR . '/providers/Router.php' );
+		require( __DIR__ . '/providers/Header.php' );
+		require( __DIR__ . '/providers/Rest.php' );
+		require( __DIR__ . '/providers/DBController.php' );
+		require( __DIR__ . '/providers/Shared.php' );
+		require( __DIR__ . '/providers/Auth.php' );
+		require( __DIR__ . '/providers/Router.php' );
 		return $this;
 	}
 
+
+	/**
+	 * Set response content : case of throwed error
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function SetError(string $message):void
+	{
+		$this->errorMessage = $message;
+	}
+
+
+	/**
+	 * Return JSON response
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function Response():string
+	{
+		if ( empty(trim($this->errorMessage)) ) {
+			$json = '';
+			$this->errorMessage = '';
+		} else {
+			$json = '';
+		}
+		return $json;
+	}
 
 }
