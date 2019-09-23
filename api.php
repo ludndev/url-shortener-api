@@ -56,4 +56,37 @@ class API
 	}
 
 
+	/**
+	 * Initialize controllers
+	 *
+	 * @access public
+	 * @return object
+	 */
+	public function Controllers():object
+	{
+		/* Table */
+		require( DIR . '/controllers/Table/table.loader.php' );
+
+		return $this;
+	}
+
+
+	/**
+	 * Initialize providers
+	 *
+	 * @access public
+	 * @return object
+	 */
+	public function Providers():object
+	{
+		require( DIR . '/providers/Header.php' );
+		require( DIR . '/providers/Rest.php' );
+		require( DIR . '/providers/DBControllers.php' );
+		require( DIR . '/providers/Shared.php' );
+		require( DIR . '/providers/Auth.php' );
+		require( DIR . '/providers/Router.php' );
+		return $this;
+	}
+
+
 }
