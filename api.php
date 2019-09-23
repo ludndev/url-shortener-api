@@ -109,6 +109,7 @@ class API
 	{
 		require( __DIR__ . '/providers/Header.php' );
 		require( __DIR__ . '/providers/Rest.php' );
+		require( __DIR__ . '/providers/Response.php' );
 		require( __DIR__ . '/providers/DBController.php' );
 		require( __DIR__ . '/providers/Shared.php' );
 		require( __DIR__ . '/providers/Auth.php' );
