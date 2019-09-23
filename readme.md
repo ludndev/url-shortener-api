@@ -17,4 +17,4 @@ Description
 
 
 ## LICENCE
-Judicaël AHYI, All Reserved Rights (C) 2019
+***See LICENCE file***
