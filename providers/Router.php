@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Lundev\UrlShortener\API\Routes;
+namespace Ludndev\UrlShortener\API\Routes;
 
 
 /**
