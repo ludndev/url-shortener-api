@@ -65,16 +65,16 @@ class DBController
 
 
 	/**
-	 * Description
+	 * Connect to database using PDO
 	 *
-	 * @access public
+	 * @access protected
 	 * @param string $DSN
 	 * @param string $DB_USER
 	 * @param string $DB_PASS
 	 * @param string $PDO_OPTIONS
 	 * @return object
 	 */
-	private function connect(string $DSN, string $DB_USER, string $DB_PASS, array $PDO_OPTIONS):object
+	protected function connect(string $DSN, string $DB_USER, string $DB_PASS, array $PDO_OPTIONS):object
 	{
 		try {
 			$conn = new PDO ($DSN, $DB_USER, $DB_PASS, $PDO_OPTIONS);
