@@ -25,7 +25,7 @@ try {
             PDO::ATTR_ORACLE_NULLS => PDO::NULL_EMPTY_STRING
         ]
     );
-    
+
 
 } catch (Exception $error) {
 
@@ -35,7 +35,7 @@ try {
 } finally {
 
     /* display JSON response */
-	$api->Response();
+	echo $api->Response();
 
 }
 

@@ -140,12 +140,15 @@ class API
 	 */
 	public function Response():string
 	{
-		if ( empty(trim($this->errorMessage)) ) {
-			$json = '';
+		$router = new \Ludndev\UrlShortener\API\Providers\Router();
+
+		if ( !empty(trim($this->errorMessage)) ) {
+			$json = $this->errorMessage;
 			$this->errorMessage = '';
 		} else {
-			$json = '';
+			$json = $router->Export();
 		}
+		
 		return $json;
 	}
 

@@ -20,7 +20,10 @@ class Router
 	
 	public function __construct()
 	{
-		$this->Initialize()->table();
+		$this
+			->Initialize()
+			->table()
+		;
 
 		return $this;
 	}
@@ -48,7 +51,7 @@ class Router
 	}
 
 
-	public function Response()
+	public function Export()
 	{
 		$dispatcher =  new Dispatcher($this->router->getData());
 		return $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
