@@ -15,12 +15,13 @@ class Response
 	 * Set and format response as JSON
 	 *
 	 * @access protected
+	 * @static
 	 * @param bool $status
 	 * @param string $message
 	 * @param array $data
 	 * @return string
 	 */
-	protected function Response(bool $status, string $message, array $data):string
+	protected static function Response(bool $status, string $message, array $data):string
 	{
 		return 
 			json_encode([
@@ -42,7 +43,7 @@ class Response
 	 */
 	public static function Success(string $message = 'SUCCESS', array $data = []):string
 	{
-		return $this->Response( TRUE , $message , $data );
+		return self::Response( TRUE , $message , $data );
 	}
 
 
@@ -57,7 +58,7 @@ class Response
 	 */
 	public static function Failed(string $message):string
 	{
-		return $this->Response( FALSE , $message , [] );
+		return self::Response( FALSE , $message , [] );
 	}
 
 
