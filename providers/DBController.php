@@ -111,7 +111,7 @@ class DBController
 	{
 		$statement = $this->conn->prepare($query);
 		$statement->execute($parameter);
-		$data = $statement->fetch($this->format[$format]);
+		$data = $statement->fetch( $this->getDataFormat($format) );
 		$statement->closeCursor();
 		return $data;
 	}
@@ -131,7 +131,7 @@ class DBController
 		$statement = $this->conn->prepare($query);
 		$statement->execute($parameter);
 		$this->lid = $this->conn->lastInsertId();
-		$data = $statement->fetchAll($this->format[$format]);
+		$data = $statement->fetchAll( $this->getDataFormat($format) );
 		$statement->closeCursor();
 		return $data;
 	}
@@ -150,7 +150,7 @@ class DBController
 	{
 		$statement = $this->conn->prepare($query);
 		$statement->execute($parameter);
-		$data = $statement->rowCount($this->format[$format]);
+		$data = $statement->rowCount( $this->getDataFormat($format) );
 		$this->lid = $this->conn->lastInsertId();
 		$statement->closeCursor();
 		return $data;
@@ -175,7 +175,7 @@ class DBController
 
 
 	/**
-	 * Correct data format 
+	 * Correct data format , return object as default
 	 *
 	 * @access public
 	 * @param string $format
@@ -183,10 +183,10 @@ class DBController
 	 */
 	public function getDataFormat(string $format)
 	{
-		if ( in_array($format, $this->allowDataFormat) ) {
-			return $format;
+		if ( array_key_exists($format, $this->allowDataFormat) ) {
+			return $this->allowDataFormat[$format];
 		} else {
-			return '';
+			return PDO::FETCH_OBJ;
 		}
 	}
 
