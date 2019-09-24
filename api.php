@@ -4,6 +4,10 @@
 namespace Ludndev\UrlShortener;
 
 
+use \Ludndev\UrlShortener\API\Providers\Router;
+use \Ludndev\UrlShortener\API\Providers\Response as JSONResponse;
+
+
 /**
  * API Class
  *
@@ -133,6 +137,20 @@ class API
 
 
 	/**
+	 * Get error message
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function GetError():string
+	{
+		$message = $this->errorMessage;
+		$this->errorMessage = '';
+		return $message;
+	}
+
+
+	/**
 	 * Return JSON response
 	 *
 	 * @access public
@@ -140,13 +158,22 @@ class API
 	 */
 	public function Response():string
 	{
-		$router = new \Ludndev\UrlShortener\API\Providers\Router();
+		try {
 
-		if ( !empty(trim($this->errorMessage)) ) {
-			$json = $this->errorMessage;
-			$this->errorMessage = '';
-		} else {
+			$router = new Router();
+
 			$json = $router->Export();
+
+		} catch (\Exception $error) {
+
+			$this->SetError( $error->getMessage() );
+
+		} finally {
+
+			if ( !empty(trim($this->errorMessage)) ) {
+				$json = JSONResponse::Failed( $this->GetError() );
+			}
+
 		}
 		
 		return $json;
