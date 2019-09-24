@@ -68,9 +68,6 @@ class API
 		$dotenv = \Dotenv\Dotenv::create( __DIR__ );
 		$dotenv->load();
 
-		/* simplify shared class calling */
-		class_alias('\Ludndev\UrlShortener\API\Providers\Shared' , '\Utilities');
-
 		return $this;
 	}
 
