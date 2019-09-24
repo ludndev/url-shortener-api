@@ -68,6 +68,9 @@ class API
 		$dotenv = \Dotenv\Dotenv::create( __DIR__ );
 		$dotenv->load();
 
+		/* simplify shared class calling */
+		class_alias('\Ludndev\UrlShortener\API\Providers\Shared' , '\Utilities');
+
 		return $this;
 	}
 
@@ -93,8 +96,11 @@ class API
 	 */
 	public function Controllers():object
 	{
-		/* Table */
-		require( __DIR__ . '/controllers/Table/table.loader.php' );
+		$loaders = \Ludndev\UrlShortener\API\Providers\Shared::ControllersLoader();
+		foreach ($loaders as $loader) {
+			require( __DIR__ . "/controllers/Table/$loader" );
+		}
+		spl_autoload_register('Controllers');
 		return $this;
 	}
 
@@ -114,6 +120,7 @@ class API
 		require( __DIR__ . '/providers/Shared.php' );
 		require( __DIR__ . '/providers/Auth.php' );
 		require( __DIR__ . '/providers/Router.php' );
+		spl_autoload_register('Providers');
 		return $this;
 	}
 
