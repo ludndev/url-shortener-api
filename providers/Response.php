@@ -40,7 +40,7 @@ class Response
 	 * @param string $message
 	 * @return string
 	 */
-	public static function Success(array $data = [], string $message = ''):string
+	public static function Success(string $message = 'SUCCESS', array $data = []):string
 	{
 		return $this->Response( TRUE , $message , $data );
 	}
@@ -55,7 +55,7 @@ class Response
 	 * @param string $message
 	 * @return string
 	 */
-	public static function Failed(string $message = ''):string
+	public static function Failed(string $message):string
 	{
 		return $this->Response( FALSE , $message , [] );
 	}
