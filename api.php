@@ -97,7 +97,6 @@ class API
 		foreach ($loaders as $loader) {
 			require( __DIR__ . "/controllers/Table/$loader" );
 		}
-		spl_autoload_register('Controllers');
 		return $this;
 	}
 
@@ -117,7 +116,6 @@ class API
 		require( __DIR__ . '/providers/Shared.php' );
 		require( __DIR__ . '/providers/Auth.php' );
 		require( __DIR__ . '/providers/Router.php' );
-		spl_autoload_register('Providers');
 		return $this;
 	}
 
