@@ -1,0 +1,26 @@
+<?php
+
+
+namespace Ludndev\UrlShortener\API\Controllers{{TABLE}};
+
+
+/**
+* 
+*/
+class {{CLASSNAME}} 
+{
+
+
+	/**
+	* Description
+	*
+	* @access public
+	* @return object
+	*/	
+	function __construct()
+	{
+		# code...
+	}
+
+
+}
